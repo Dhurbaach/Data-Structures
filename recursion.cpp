@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<stdbool.h>
 int fibo(int n)
 {
     if (n==1)

@@ -1,81 +1,68 @@
-#include<stdio.h>
-#include<stdlib.h>
-struct que
+#include <stdio.h>
+#include <stdlib.h>
+struct queue
 {
-    int size;
+    int *data;
     int front;
     int rear;
-    int *arr;
+    int size;
 };
-int isempty(struct que *ptr)
+int isfull(struct queue *q)
 {
-    if(ptr->front==ptr->rear)
+    if (q->rear == q->size - 1)
     {
         return 1;
     }
     return 0;
 }
-int isfull(struct que *qptr)
+int isempty(struct queue *q)
 {
-    if(qptr->rear==qptr->size-1)
+    if (q->front == q->rear)
     {
         return 1;
     }
     return 0;
 }
-void enqueue(struct que *q,int val)
+void enque(struct queue *q, int a)
 {
-    if(isfull(q)==1)
+    if (isfull(q) == 1)
     {
-        printf("Queue is full!!!\n");
+        printf("Queue is full\n");
     }
     else
     {
         q->rear++;
-        q->arr[q->rear]=val;
-        printf("The enqueued element is:%d\n",val);
+        q->data[q->rear] = a;
+        printf("Enqueued element is:");
+          printf("%d\n", a);
     }
 }
-int dequeue(struct que *q)
+int deque(struct queue *q)
 {
-    if(isempty(q)==1)
+    if (isempty(q) == 1)
     {
-        printf("Queue is empty!!!\n");
-        return -1;
+        printf("Queue is empty!!\n");
+        return-1;
     }
     else
     {
         q->front++;
-        return q->arr[q->front];
+        return (q->data[q->front]);
     }
 }
 int main()
 {
-    struct que *q=(struct que*) malloc(sizeof(struct que));
-    q->size=5;
-    q->front=q->rear=-1;
-    q->arr=(int*) malloc(q->size*sizeof(int));
-    enqueue(q,1);
-    enqueue(q,2);
-    enqueue(q,3);
-    enqueue(q,4);
-    enqueue(q,5);
-    enqueue(q,6);
-    // printf("The elements in the queue are:\n");
-    // for (int i = 0; i < q->rear; i++)
-    // {
-    //     printf("%d\n",q->arr[i]);
-    // }
-    printf("Dequeuing element %d\n", dequeue(q));
-    printf("Dequeuing element %d\n", dequeue(q));
-    printf("Dequeuing element %d\n", dequeue(q));
-    printf("Dequeuing element %d\n", dequeue(q));
-    printf("Dequeuing element %d\n", dequeue(q));
-    printf("Dequeuing element %d\n", dequeue(q));
-    // printf("The elements in the queue after dequing are:\n");
-    // for (int i = q->front+1; i < q->rear; i++)
-    // {
-    //     printf("%d\n",q->arr[i]);
-    // }
+    struct queue *q = (struct queue *)malloc(sizeof(struct queue));
+    q->size = 5;
+    q->data = (int *)malloc(q->size * sizeof(int));
+    q->front = -1;
+    q->rear = -1;
+    enque(q, 5);
+    enque(q,6);
+    enque(q,7);
+    enque(q,8);
+    enque(q,8);
+    enque(q,8);
+    printf("Dequeued element %d\n",deque(q));
     return 0;
 }
